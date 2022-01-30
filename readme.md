@@ -26,3 +26,5 @@ np.dot(Q[np.array(list(ret), dtype=np.int32)], P[item_idx])
 
 
 ### Note: this implementation is not official
+
+refer [official implementation in C++](https://github.com/amgt-d1/Simpfer) and [the original paper](https://dl.acm.org/doi/10.1145/3460231.3474229)
