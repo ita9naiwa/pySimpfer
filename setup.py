@@ -11,9 +11,6 @@ from distutils.core import Extension, setup
 
 numpy_include_dirs = os.path.split(numpy.__file__)[0] + '/core/include'
 
-# TODO: Appropriate g++ version pattern matching
-# install g++
-
 def set_gcc_mac():
     patterns = ['/opt/local/bin/g++-mp-[0-9]*.[0-9]*',
                 '/opt/local/bin/g++-mp-[0-9]*',
@@ -24,12 +21,9 @@ def set_gcc_mac():
     os.environ["CXX"] = ret[-1]
     os.environ["CC"] = ret[-1]
 
+
 if platform.system() == 'Darwin':
     set_gcc_mac()
-
-
-
-os.environ['CXX'] = "/opt/homebrew/opt/gcc@11/bin/g++-11"
 
 
 include_dirs = [numpy_include_dirs]
@@ -43,8 +37,7 @@ ext_modules=[
               language='c++',
               include_dirs=include_dirs,
               extra_compile_args=compile_args,
-              extra_link_args=link_args),
-]
+              extra_link_args=link_args)]
 
 
 setup(name="pysimpfer",

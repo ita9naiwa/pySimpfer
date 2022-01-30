@@ -58,7 +58,7 @@ class Simpfer():
         self.Q_indmap, \
         self.Q, self.P, \
         self.Q_norm, self.P_norm, \
-        self.L, self.blocks, self.block_Ls, self.inds \
+        self.L, self.block_Ls, self.inds \
         = self.construct(self.org_Q, self.org_P, K, block_c)
 
     def construct(self, Q, P, k, block_c, max_chunk_size=64):
@@ -83,15 +83,17 @@ class Simpfer():
                 break
             blocks.append(_Q[i:i+chunk_size])
             block_Ls.append(np.min(L[i:i+chunk_size], axis=0))
-            inds.append((i, min(len(L), i + chunk_size)))
+            inds.append([i, min(len(L), i + chunk_size)])
 
         return (Q_indmap, _Q, _P, _Q_norm, _P_norm, L,
-               np.array(blocks), np.array(block_Ls), np.array(inds, dtype=np.int32))
-    def rmips(self, item_idx, k=5, backend='python'):
+                np.array(block_Ls), np.array(inds, dtype=np.int32))
+    def rmips(self, item_idx, k=5, backend='cython'):
         if backend == 'python':
             return self.rmips_v1(item_idx, k)
-        else:
+        elif backend == 'cython':
             return self.rmips_v2(item_idx, k)
+        else:
+            raise IndexError("Not implemented")
 
 
     def rmips_v1(self, item_idx, k=5):
