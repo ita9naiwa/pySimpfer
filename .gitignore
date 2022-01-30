@@ -1,0 +1,13 @@
+*.ipynb
+*.cpp
+
+__pycache__/
+
+build/
+dist/
+*.egg-info
+
+.ipynb_checkpoints/
+.pytest_cache/
+
+test_script.sh
